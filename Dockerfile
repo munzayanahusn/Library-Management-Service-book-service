@@ -10,4 +10,5 @@ COPY . .
 
 EXPOSE 3001
 
-CMD ["npm", "run", "start:dev"]
+# Start the application
+CMD ["npm", "run", "start"]
