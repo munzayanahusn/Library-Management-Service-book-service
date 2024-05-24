@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 
 import { MongooseConfigModule } from './mongoose/mongoose.module';
 import { BookModule } from './book/book.module';
 import { LogsModule } from './logs/logs.module';
-
+import { Book } from './book/entities/book.entity';
+import { BookController } from './book/book.controller';
+import { BookService } from './book/book.service';
 
 @Module({
   imports: [
@@ -14,17 +17,21 @@ import { LogsModule } from './logs/logs.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: +process.env.DATABASE_PORT,
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-      autoLoadEntities: true,
+      host: process.env.POSTGRES_HOST,
+      port: parseInt(process.env.POSTGRES_PORT, 10),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
+      entities: [Book],
       synchronize: true,
     }),
+    
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     BookModule,
     LogsModule,
-    MongooseConfigModule,
-  ]
+  ],
+  controllers: [BookController],
+  providers: [BookService],
 })
+
 export class AppModule {}

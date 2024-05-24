@@ -1,14 +1,15 @@
-version: '3.8'
-services:
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mhsITB313
-      POSTGRES_DB: library_management_service
-    ports:
-      - "5432:5432"
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
+author-service:
+  build:
+    context: ./book-service
+  ports:
+    - "3002:3001"
+  depends_on:
+    - postgres
+    - mongo
+  environment:
+    POSTGRES_HOST: postgres
+    POSTGRES_PORT: 5432
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: mhsITB313
+    POSTGRES_DB: library_management_service
+    MONGODB_URI: mongodb://mongo:27017/library_logs

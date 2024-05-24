@@ -1,14 +1,14 @@
-FROM node:18
+FROM node:22
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+# Adding retry logic for npm install
+RUN npm install || npm install || npm install
 
 COPY . .
 
 EXPOSE 3001
 
-# Start the application
 CMD ["npm", "run", "start"]
