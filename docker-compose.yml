@@ -9,7 +9,7 @@ author-service:
   environment:
     POSTGRES_HOST: postgres
     POSTGRES_PORT: 5432
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: mhsITB313
+    POSTGRES_USER: 
+    POSTGRES_PASSWORD: 
     POSTGRES_DB: library_management_service
     MONGODB_URI: mongodb://mongo:27017/library_logs
